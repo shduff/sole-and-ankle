@@ -29,9 +29,25 @@ const Header = () => {
 const MainHeader = styled.div`
   padding: 0 32px;
   border-bottom: 1px solid ${COLORS.gray[300]};
+
+  display:flex;
+  flex-direction:row;
+  justify-content:space-between;
+  align-items:baseline;
+  padding:22px 32px;
+
 `;
 
-const Nav = styled.nav``;
+const Nav = styled.nav`
+  /*align-self:center;*/
+  /*The above is what I actually want, I  think, but I can't seem to get that to apply? My first hope was to pull the Logo component out of the flow, but I don't know how to add styling to that element either... */
+  margin:0 auto;
+
+  display:flex;
+  flex-direction:row;
+  justify-content:space-around;
+  gap:48px; 
+`;
 
 const NavLink = styled.a`
   font-size: 1.125rem;

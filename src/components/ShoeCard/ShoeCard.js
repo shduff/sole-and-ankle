@@ -36,35 +36,63 @@ const ShoeCard = ({
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
+          <VarFlag class={variant}>
+            {/* Not sure how to turn this into the text I want using multiple if statements where 'new-release' => 'Just released!', 'on-sale' => 'Sale', and 'default' => display:none */}
+            {variant==='on-sale' ? "Sale" : "New Release!"} 
+          </VarFlag>
         </ImageWrapper>
+
         <Spacer size={12} />
-        <Row>
-          <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
-        </Row>
-        <Row>
-          <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
-        </Row>
+        <InfoWrapper>
+          <Row>
+            <Name>{name}</Name>
+            <Price>{formatPrice(price)}</Price>
+          </Row>
+          <Row>
+            <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          </Row>
+        </InfoWrapper>
       </Wrapper>
     </Link>
   );
 };
 
+const VarFlag = styled.div`
+  position:absolute;
+  top:16px;
+  right:-16px;
+  background-color:slateblue;
+  color:white;
+  padding:6px 16px;
+  font-weight:bold;
+`;
+
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
+
+  flex:1 0 300px;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const Image = styled.img``;
+const InfoWrapper = styled.div`
+  display:flex;
+  justify-content:space-between;
+`;
+
+const Image = styled.img`
+  width:100%;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
+  display:inline;
 `;
 
 const Name = styled.h3`
