@@ -36,35 +36,49 @@ const ShoeCard = ({
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
-          <VarFlag class={variant}>
-            {/* Not sure how to turn this into the text I want using multiple if statements where 'new-release' => 'Just released!', 'on-sale' => 'Sale', and 'default' => display:none */}
-            {variant==='on-sale' ? "Sale" : "New Release!"} 
-          </VarFlag>
+          <Flag>
+            {variant==='on-sale' && <SaleFlag>Sale</SaleFlag>}
+            {variant==='new-release' && <NewFlag>New release!</NewFlag>}  
+          </Flag>
         </ImageWrapper>
 
         <Spacer size={12} />
-        <InfoWrapper>
-          <Row>
-            <Name>{name}</Name>
-            <Price>{formatPrice(price)}</Price>
-          </Row>
-          <Row>
-            <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
-          </Row>
-        </InfoWrapper>
+        <Row>
+          <Name>{name}</Name>
+          <Price style={
+            // Why isn't the --color declaration working here?
+            { '--color' : variant === 'on-sale' ? COLORS.gray[700] : undefined},
+            { '--text-decoration' : variant === 'on-sale' ? 'line-through' : undefined}
+          }>{formatPrice(price)}</Price>
+        </Row>
+        <Row>
+          <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          { variant === 'on-sale' ? <SalePrice>{formatPrice(salePrice)}</SalePrice> : undefined}
+        </Row>
       </Wrapper>
     </Link>
   );
 };
 
-const VarFlag = styled.div`
+const Flag = styled.div`
   position:absolute;
-  top:16px;
-  right:-16px;
-  background-color:slateblue;
-  color:white;
-  padding:6px 16px;
-  font-weight:bold;
+  height:32px;
+  line-height:32px;
+  padding: 0 10px;
+  font-size:${14/18}rem;
+  font-weight:${WEIGHTS.bold};
+  top:12px;
+  right:-4px;
+  color:${COLORS.white};
+  border-radius:2px;
+`;
+
+const SaleFlag = styled(Flag)`
+  background-color:${COLORS.primary};
+`;
+
+const NewFlag = styled(Flag)`
+  background-color:${COLORS.secondary};
 `;
 
 const Link = styled.a`
@@ -81,18 +95,15 @@ const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const InfoWrapper = styled.div`
-  display:flex;
-  justify-content:space-between;
-`;
-
 const Image = styled.img`
   width:100%;
 `;
 
 const Row = styled.div`
   font-size: 1rem;
-  display:inline;
+
+  display:flex;
+  justify-content:space-between;
 `;
 
 const Name = styled.h3`
@@ -100,7 +111,10 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  color:var(--color);
+  text-decoration:var(--text-decoration);
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};

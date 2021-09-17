@@ -45,24 +45,23 @@ const ShoeIndex = ({ sortId, setSortId }) => {
 const Wrapper = styled.div`
   display:flex;
   flex-direction:row-reverse;
-
-  /*This line isn't doing what I'd expect, e.g. perfectly aligning the top of the Left and Main columns...?*/
-  align-items:flex-start; 
+  gap:32px;
+  align-items:baseline; 
 `;
 
 const LeftColumn = styled.div`
-  flex:1;
+  flex-basis:248px;
 `;
 
 const MainColumn = styled.div`
-  flex:3;
+  flex:1;
 `;
 
 const Header = styled.header`
   display:flex;
   flex-direction:row;
   gap:16px;
-  align-items:center;
+  align-items:baseline;
 `;
 
 const Title = styled.h2`

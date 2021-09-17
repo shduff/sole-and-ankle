@@ -12,7 +12,9 @@ const Header = () => {
     <header>
       <SuperHeader />
       <MainHeader>
-        <Logo />
+        <Side>
+          <Logo />
+        </Side>
         <Nav>
           <NavLink href="/sale">Sale</NavLink>
           <NavLink href="/new">New&nbsp;Releases</NavLink>
@@ -21,6 +23,7 @@ const Header = () => {
           <NavLink href="/kids">Kids</NavLink>
           <NavLink href="/collections">Collections</NavLink>
         </Nav>
+        <Side />
       </MainHeader>
     </header>
   );
@@ -32,21 +35,23 @@ const MainHeader = styled.div`
 
   display:flex;
   flex-direction:row;
-  justify-content:space-between;
   align-items:baseline;
-  padding:22px 32px;
+  justify-content:space-between;
+  padding:18px 32px;
+  height:72px;
+`;
 
+const Side =  styled.div`
+  /* These added elements + flex:1; are how we are centering the Nav element, keeping the Logo to one side. */
+  flex:1;
 `;
 
 const Nav = styled.nav`
-  /*align-self:center;*/
-  /*The above is what I actually want, I  think, but I can't seem to get that to apply? My first hope was to pull the Logo component out of the flow, but I don't know how to add styling to that element either... */
-  margin:0 auto;
-
   display:flex;
   flex-direction:row;
   justify-content:space-around;
   gap:48px; 
+  margin:0px 48px;
 `;
 
 const NavLink = styled.a`
